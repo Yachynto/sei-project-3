@@ -1,4 +1,5 @@
 import React from 'react'
+import ThreadCard from './ThreadCard'
 
 import { getThreads } from '../lib/api'
 
@@ -19,7 +20,9 @@ class ThreadIndex extends React.Component {
     if ( !this.state.threads ) return null
     return (
       <div>
-        Check the console
+        { this.state.threads.map(thread => (
+          <ThreadCard key={thread._id} {...thread} />
+        ))}
       </div>
     )
   }
