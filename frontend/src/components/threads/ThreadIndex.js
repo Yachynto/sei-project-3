@@ -12,7 +12,7 @@ class ThreadIndex extends React.Component {
     this.setState({
       threads: response.data
     })
-    console.log(response)
+    console.log(response.data)
   }
 
   render() {
