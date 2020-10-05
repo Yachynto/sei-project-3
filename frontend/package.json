@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "eslint-plugin-react": "^7.21.3",
+    "fontsource-roboto": "^3.0.3",
+    "http-proxy-middleware": "^1.0.5",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

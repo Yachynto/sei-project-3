@@ -1,0 +1,11 @@
+{
+  "workbench.colorCustomizations": {
+    "statusBar.background": "#0c8716",
+    "titleBar.activeBackground": "#0c8716",
+    "titleBar.inactiveBackground": "#0c8716",
+    "statusBar.foreground": "#fff",
+    "titleBar.inactiveForeground": "#fff",
+    "titleBar.activeForeground": "#fff",
+  },
+  "window.title": "FRONTEND - Semiosphere Lab"
+}
