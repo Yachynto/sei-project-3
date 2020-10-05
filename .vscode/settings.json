@@ -1,0 +1,11 @@
+{
+  "workbench.colorCustomizations": {
+    "statusBar.background": "#b50609",
+    "titleBar.activeBackground": "#b50609",
+    "titleBar.inactiveBackground": "#b50609",
+    "statusBar.foreground": "#fff",
+    "titleBar.inactiveForeground": "#fff",
+    "titleBar.activeForeground": "#fff",
+  },
+  "window.title": "BACKEND - Semiosphere Lab"
+}
