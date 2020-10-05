@@ -7,7 +7,7 @@ const ThreadCard = ({ _id, title, message, createdBy }) => {
         <h4>{title}</h4>
       </div>
       <div className="message">{message}</div>
-      <div className="createdBy">{createdBy}</div>
+      <div className="createdBy">Created by {createdBy}</div>
     </div>
   )
 }
