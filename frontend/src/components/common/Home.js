@@ -1,9 +1,8 @@
 import React from 'react'
-import ThreadIndex from '../threads/ThreadIndex'
 
 const Home = () => {
   return (
-    <ThreadIndex />
+    <div>Hello, Welcome to Semiosphere Lab</div>
   )
 }
 

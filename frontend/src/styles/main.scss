@@ -1,8 +1,14 @@
-body {
-  background-color: darkgray;
+//* Navbar
+@import "~bootstrap/scss/bootstrap";
+
+#collasible-nav-dropdown {
+  margin-right: 60px;
 }
 
-//* Navbar
+//* Register Form
+#form {
+  margin: 60px 400px;
+}
 
 
 //* ThreadCard
