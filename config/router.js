@@ -12,6 +12,13 @@ router.route('/threads/:id')
   .delete(secureRoute, threads.delete)
   .put(secureRoute, threads.update)
 
+router.route('/threads/:id/replies')
+  .post(secureRoute, threads.replyCreate)
+
+router.route('/threads/:id/replies/:replyId')
+  .delete(secureRoute, threads.replyDelete)
+  .put(secureRoute, threads.replyUpdate)
+
 router.route('/threads/register')
   .post(auth.register)
 

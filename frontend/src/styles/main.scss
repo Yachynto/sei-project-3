@@ -10,12 +10,30 @@
   margin: 60px 400px;
 }
 
+#submitButton {
+  margin-left: 340px;
+}
+
 
 //* ThreadCard
 .threadBox {
   width: 450px;
-  height: 100px;
   border: 1px solid black;
   margin: 20px auto;
   padding: 10px;
+}
+
+.createThread {
+  margin-right: 100px;
+}
+
+.createdBy {
+  font-size: smaller;
+  text-align: right;
+}
+
+.imageLogo {
+  width: 40px;
+  height: 40px;
+  background-image: url("/src/styles/images/SemiosphereLabThis.png");
 }

@@ -1,23 +1,24 @@
 const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 const { secret } = require('../config/environment')
+const { unauthorized } = require('../lib/errorMessage')
 
 //* Register POST /register
-async function register(req, res) {
+async function register(req, res, next) {
   try {
     const user = await User.create(req.body)
     res.status(201).json({ message: `Welcome ${user.username}!` })
   } catch (err) {
-    res.status(422).json(err)
+    next(err)
   }
 }
 
 //* Login POST /login
-async function login(req, res) {
+async function login(req, res, next) {
   try {
     const user = await User.findOne({ email: req.body.email })
     if (!user || !user.validatePassword(req.body.password)) {
-      throw new Error()
+      throw new Error(unauthorized)
     }
     const token = jwt.sign(
       { sub: user._id },
@@ -30,7 +31,7 @@ async function login(req, res) {
     })
     console.log(`${user.username} has just logged in!`)
   } catch (err) {
-    res.status(401).json({ message: 'Unauthorized Login' })
+    next(err)
   }
 }
 
