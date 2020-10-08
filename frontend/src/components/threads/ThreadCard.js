@@ -19,29 +19,32 @@ class ThreadCard extends React.Component {
     const { isOpen } = this.state
     return (
       <>
-        <div
-          onClick={this.toggleState}
-          aria-controls="example-collapse-text"
-          aria-expanded={isOpen}
-        >
-          <Media>
-            <div id={this.props._id} className="threadBox">
-              <div>
-                <img
-                  width={64}
-                  height={64}
-                  className="mr-3"
-                  src={this.props.image}
-                  alt="user pic"
-                />
-                <Media.Body>
-                  <h5>{this.props.title}</h5>
-                  <p>{this.props.message}</p>
-                  <p>{this.props.createdBy}</p>
-                </Media.Body>
+        <div className="threadBox">
+          <div
+            onClick={this.toggleState}
+            aria-controls="example-collapse-text"
+            aria-expanded={isOpen}
+          >
+            <Media>
+              <div id={this.props._id}>
+                <div>
+                  <img
+                    width={64}
+                    height={64}
+                    className="mr-3"
+                    src={this.props.image}
+                    alt="user pic"
+                  />
+                  <Media.Body>
+                    <h5>{this.props.title}</h5>
+                    <p>{this.props.message}</p>
+                    <p>{this.props.createdBy}</p>
+                  </Media.Body>
+                </div>
               </div>
-            </div>
-          </Media>
+            </Media>
+            <div className="replyButton">Reply</div>
+          </div>
         </div>
         <Collapse in={isOpen}>
           <div id="example-collapse-text" className="threadBox">

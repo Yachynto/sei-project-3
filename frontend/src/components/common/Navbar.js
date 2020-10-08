@@ -1,8 +1,9 @@
 import React from 'react'
 
-import { Nav, NavDropdown, Navbar } from 'react-bootstrap'
+import { Nav, NavDropdown, Navbar, Image } from 'react-bootstrap'
 import { logout, isAuthenticated } from '../lib/auth'
 import CreateThreadHover from '../notifications/notification'
+import SemiosphereLab from '/Users/giacinto/development-ga/SEI50/projects/sei-project-3/frontend/src/styles/images/SemiosphereLab.png'
 
 const Navigation = () => {
 
@@ -12,7 +13,7 @@ const Navigation = () => {
   
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-      {/* <image className="imageLogo" rounded src="../components/styles/images/SemiosphereLabThis"/> */}
+      <Image className="imageLogo" roundedCircle src={SemiosphereLab} />
       <Navbar.Brand href="/">Semiosphere Lab</Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">

@@ -22,6 +22,14 @@
   padding: 10px;
 }
 
+.replyButton {
+  position: static;
+  text-align: right;
+  cursor: pointer;
+  font-size: smaller;
+  width: 50px !important;
+}
+
 
 //* Threads
 .threadBox {
@@ -41,7 +49,7 @@
 }
 
 .imageLogo {
-  width: 40px;
-  height: 40px;
-  background-image: url("/src/styles/images/SemiosphereLabThis.png");
+  width: 80px;
+  height: 80px;
+  margin-right: 30px;
 }
