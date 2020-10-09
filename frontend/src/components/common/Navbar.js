@@ -7,6 +7,7 @@ import SemiosphereLab from '/Users/giacinto/development-ga/SEI50/projects/sei-pr
 
 const Navigation = () => {
 
+
   const handleLogout = () => {
     logout()
   }

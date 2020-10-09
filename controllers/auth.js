@@ -26,7 +26,7 @@ async function login(req, res, next) {
       { expiresIn: '7 days' },
     )
     res.status(202).json({
-      message: `Welcome back ${user.username}!`,
+      message: `Welcome back ${user.username}`,
       token
     })
     console.log(`${user.username} has just logged in!`)

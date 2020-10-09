@@ -1,6 +1,7 @@
 //* Navbar
 @import "~bootstrap/scss/bootstrap";
 
+
 #collasible-nav-dropdown {
   margin-right: 60px;
 }
@@ -52,4 +53,18 @@
   width: 80px;
   height: 80px;
   margin-right: 30px;
+}
+
+// * Home
+.d-block.w-100 {
+  width: 300px;
+  background-color: darkseagreen;
+  height: 300px;
+}
+.title {
+  margin-bottom: 100px;
+}
+
+.title p {
+  font-size: larger;
 }

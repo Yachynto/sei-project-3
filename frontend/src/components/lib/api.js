@@ -17,9 +17,13 @@ export const createThread = formData => {
   return axios.post('/api/threads', formData, withHeaders())
 }
 
+export const getSingleThread = threadId => {
+  return axios.get(`/api/threads/${threadId}`)
+}
+
 //  Replies
-export const createReply = formData => {
-  return axios.post('/threads/:id/replies/:replyId', formData, withHeaders())
+export const createReply = (id, formData) => {
+  return axios.post(`/api/threads/${id}/replies`, formData, withHeaders())
 }
 
 // Auth

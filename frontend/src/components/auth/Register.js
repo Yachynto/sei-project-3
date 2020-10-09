@@ -53,19 +53,21 @@ class Register extends React.Component {
                 height={180}
                 alt="171x180"
                 src={image}
+                value={image}
+                onChange={this.handleChange}
+              />
+              <Form.File
+                className="position-relative"
+                required
+                name="file"
+                label="Image"
+                onChange={this.handleChange}
+                isInvalid={!!this.state.errors.file}
+                feedback={this.state.errors.file}
+                id="validationFormik107"
+                feedbackTooltip
               />
             </Figure>
-            <Form.File
-              className="position-relative"
-              required
-              name="file"
-              label="Image"
-              onChange={this.handleChange}
-              isInvalid={!!this.state.errors.file}
-              feedback={this.state.errors.file}
-              id="validationFormik107"
-              feedbackTooltip
-            />
           </Form.Group>
           <Form.Group controlId="formGroupUsername">
             <Form.Label>Username</Form.Label>
