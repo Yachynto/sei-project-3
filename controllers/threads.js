@@ -1,12 +1,14 @@
 const Thread = require('../models/thread')
+const User = require('../models/user')
 const { notFound, forbidden } = require('../lib/errorMessage')
 
 //* Create POST /threads
 async function threadCreate (req, res, next) {
   try {
-    const newThread = await Thread.create(req.body)
+    const newThreadData = { ...req.body, owner: req.currentUser._id }
+    const newThread = await Thread.create(newThreadData)
     res.status(200).json(newThread)
-    console.log(`Thread titled ${newThread.title} has been created`)
+    console.log(`Thread titled ${newThread.title} has been created by ${req.currentUser.username}`)
   } catch (err) {
     next(err)
   }

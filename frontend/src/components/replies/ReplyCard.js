@@ -2,7 +2,7 @@ import React from 'react'
 
 import Media from 'react-bootstrap/Media'
 
-const ReplyCard = ({ image, _id, message, createdBy }) => {
+const ReplyCard = ({ image, _id, message, username }) => {
   return (
     <Media>
       <div
@@ -19,7 +19,7 @@ const ReplyCard = ({ image, _id, message, createdBy }) => {
           />
           <Media.Body>
             <p>{message}</p>
-            <p>{createdBy}</p>
+            <p>{username}</p>
           </Media.Body>
         </div>
       </div>

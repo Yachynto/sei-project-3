@@ -1,7 +1,7 @@
 const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 const { secret } = require('../config/environment')
-const { unauthorized } = require('../lib/errorMessage')
+const { unauthorized, notFound } = require('../lib/errorMessage')
 
 //* Register POST /register
 async function register(req, res, next) {
@@ -12,6 +12,7 @@ async function register(req, res, next) {
     next(err)
   }
 }
+
 
 //* Login POST /login
 async function login(req, res, next) {
@@ -35,7 +36,35 @@ async function login(req, res, next) {
   }
 }
 
+//* Profile GET /profile
+async function profile(req, res, next) {
+  try {
+    const user = await User.findById(req.currentUser._id)
+    if (!user) throw new Error(notFound)
+    res.status(200).json(user)
+  } catch (err) {
+    next(err)
+  }
+}
+
+//* Update PUT /profile
+async function profileUpdate(req, res, next) {
+  try {
+    const profileToEdit = await User.findById(req.currentUser._id)
+    if (!profileToEdit) throw new Error(notFound)
+    Object.assign(profileToEdit, req.body)
+    await profileToEdit.save()
+    res.status(202).json(profileToEdit)
+  } catch (err) {
+    next(err)
+  }
+}
+
+
+
 module.exports = {
   register,
-  login
+  login,
+  profile,
+  profileUpdate
 }

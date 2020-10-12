@@ -28,9 +28,17 @@ export const createReply = (id, formData) => {
 
 // Auth
 export const registerUser = formData => {
-  return axios.post('/api/threads/register', formData)
+  return axios.post('/api/register', formData)
 }
 
 export const loginUser = formData => {
-  return axios.post('/api/threads/login', formData)
+  return axios.post('/api/login', formData)
+}
+
+export function getUser() {
+  return axios.get('/api/profile', withHeaders())
+}
+
+export const userEdit = (formData) => {
+  return axios.put('/api/profile', formData, withHeaders())
 }

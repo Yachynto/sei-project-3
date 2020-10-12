@@ -19,10 +19,15 @@ router.route('/threads/:id/replies/:replyId')
   .delete(secureRoute, threads.replyDelete)
   .put(secureRoute, threads.replyUpdate)
 
-router.route('/threads/register')
+router.route('/register')
   .post(auth.register)
 
-router.route('/threads/login')
+router.route('/login')
   .post(auth.login)
+
+router.route('/profile')
+  .get(secureRoute, auth.profile)
+  .put(secureRoute, auth.profileUpdate)
+
 
 module.exports = router

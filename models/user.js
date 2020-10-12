@@ -2,13 +2,21 @@ const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 
 const userSchema = new mongoose.Schema({
-  image: { type: String },
+  userImage: { type: String },
   username: { type: String, maxlength: 30, unique: true, required: true },
   email: { type: String, unique: true, required: true },
   password: { type: String, required: true },
   nationality: { type: String, required: true },
   currentCountry: { type: String }
 })
+
+userSchema
+  .set('toJSON', {
+    transform(_doc, json) {
+      delete json.password
+      return json
+    }
+  })
 
 userSchema
   .virtual('passwordConfirmation')

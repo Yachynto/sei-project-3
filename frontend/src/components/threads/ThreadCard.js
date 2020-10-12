@@ -1,7 +1,7 @@
 import React from 'react'
 
 import ReplayCard from '../replies/ReplyCard'
-import { createReply } from '../lib/api'
+import { createReply, getUser } from '../lib/api'
 
 import Media from 'react-bootstrap/Media'
 import { Nav, Form, Button } from 'react-bootstrap'
@@ -14,10 +14,27 @@ class ThreadCard extends React.Component {
     isOpen: false,
     repliesOpen: false,
     formData: {
+      title: '',
       message: '',
-      createdBy: ''
+      createdBy: {
+        username: '',
+        userImage: ''
+      }
     },
     errors: {}
+  }
+
+  async componentDidMount() {
+    try {
+      const res = await getUser()
+      this.setState({
+        formData: {
+          createdBy: res.data
+        }
+      })
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   handleChange = event => {
@@ -31,6 +48,7 @@ class ThreadCard extends React.Component {
   handleSubmit = async () => {
     try {
       const response = await createReply(this.props._id, this.state.formData)
+      console.log(response)
     } catch (err) {
       console.log(err.response.data.message)
     }
@@ -60,8 +78,10 @@ class ThreadCard extends React.Component {
 
 
   render() {
-    const { message, createdBy } = this.state.formData
+    // console.log(this.props)
+    const { message } = this.state.formData
     const { isOpen, repliesOpen } = this.state
+    const { username } = this.state.formData.createdBy
     return (
       <>
         <div className="threadBox" onClick={this.handleClick}>
@@ -78,13 +98,13 @@ class ThreadCard extends React.Component {
                       width={64}
                       height={64}
                       className="mr-3"
-                      src={this.props.image}
+                      src={this.state.formData.createdBy.userImage}
                       alt="user pic"
                     />
                     <Media.Body>
                       <h5>{this.props.title}</h5>
                       <p>{this.props.message}</p>
-                      <p>{this.props.createdBy}</p>
+                      <p>by {username}</p>
                     </Media.Body>
                   </div>
                 </div>
@@ -114,8 +134,7 @@ class ThreadCard extends React.Component {
               {/* <Form.Control type="text" placeholder={createdBy} readOnly /> */}
 
               <Form.Group controlId="formBasicEmail">
-                <Form.Label>By</Form.Label>
-                <Form.Control name="createdBy" type="text" placeholder="Enter user" value={createdBy} onChange={this.handleChange} />
+                <Form.Control type="text" placeholder={username} readOnly />
               </Form.Group>
               
               <Button id="submitButton" variant="primary" type="submit">

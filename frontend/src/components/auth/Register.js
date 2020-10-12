@@ -1,12 +1,13 @@
 import React from 'react'
 
 import { registerUser } from '../lib/api'
-import { Form, Button, Figure } from 'react-bootstrap'
+import { Form, Button } from 'react-bootstrap'
+import ImageUpload from '../common/ImageUpload'
 
 class Register extends React.Component {
   state = {
     formData: {
-      image: '',
+      userImage: '',
       username: '',
       email: '',
       password: '',
@@ -29,11 +30,16 @@ class Register extends React.Component {
     this.setState({ formData, errors })
   }
 
+  handleImageChange = url => {
+    const formData = { ...this.state.formData, userImage: url }
+    this.setState({ formData })
+  }
+
   handleSubmit = async event => {
     event.preventDefault()
     try {
       const response = await registerUser(this.state.formData)
-      console.log(response)
+      console.log(response.config.data)
       this.props.history.push('/login')
     } catch (err) {
       console.log(err.response.data.message)
@@ -42,32 +48,14 @@ class Register extends React.Component {
   }
 
   render() {
-    const { image, username, email, password, passwordConfirmation, nationality, currentCountry } = this.state.formData
+    const { username, email, password, passwordConfirmation, nationality, currentCountry } = this.state.formData
     return (
       <>
         <Form id="form" onSubmit={this.handleSubmit}>
           <Form.Group>
-            <Figure>
-              <Figure.Image
-                width={171}
-                height={180}
-                alt="171x180"
-                src={image}
-                value={image}
-                onChange={this.handleChange}
-              />
-              <Form.File
-                className="position-relative"
-                required
-                name="file"
-                label="Image"
-                onChange={this.handleChange}
-                isInvalid={!!this.state.errors.file}
-                feedback={this.state.errors.file}
-                id="validationFormik107"
-                feedbackTooltip
-              />
-            </Figure>
+            <ImageUpload 
+              onChange={this.handleImageChange}
+            />
           </Form.Group>
           <Form.Group controlId="formGroupUsername">
             <Form.Label>Username</Form.Label>

@@ -1,22 +1,29 @@
 import React from 'react'
 
 import { Form, Button } from 'react-bootstrap'
-import { createThread } from '../lib/api'
+import { createThread, getUser } from '../lib/api'
 
 class ThreadCreate extends React.Component {
   state = {
     formData: {
       title: '',
-      message: '',
-      createdBy: ''
+      message: ''
     },
     errors: {}
   }
 
   //! createdBy field need to be 'read only' and showing the user that made the thread
-  // componentDidMount() {
-  //   const byUser = await
-  // }
+
+  async componentDidMount() {
+    try {
+      const res = await getUser()
+      this.setState({
+        createdBy: res.data.username
+      })
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   handleChange = event => {
     const formData = {
@@ -42,7 +49,7 @@ class ThreadCreate extends React.Component {
   }
 
   render () {
-    const { title, message, createdBy } = this.state.formData
+    const { title, message } = this.state.formData
     return (
       <Form id="form" onSubmit={this.handleSubmit}>
         <Form.Group controlId="formBasicEmail">
@@ -52,16 +59,11 @@ class ThreadCreate extends React.Component {
 
         <Form.Group controlId="exampleForm.ControlTextarea1">
           <Form.Label>Message</Form.Label>
-          <Form.Control name="message" as="textarea" rows="4" value={message} onChange={this.handleChange} />
-        </Form.Group>
-
-        {/* <Form.Control type="text" placeholder={reatedBy} readOnly /> */}
-
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>By</Form.Label>
-          <Form.Control name="createdBy" type="text" placeholder="Enter user" value={createdBy} onChange={this.handleChange} />
+          <Form.Control name="message" placeholder="Your message" as="textarea" rows="4" value={message} onChange={this.handleChange} />
         </Form.Group>
         
+        <Form.Control type="text" placeholder={this.state.createdBy} readOnly />
+
         <Button id="submitButton" variant="primary" type="submit">
           Submit
         </Button>
