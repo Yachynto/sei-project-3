@@ -2,7 +2,7 @@ import React from 'react'
 
 import Media from 'react-bootstrap/Media'
 
-const ReplyCard = ({ _id, message, owner }) => {
+const RecordCard = ({ _id, audio, owner }) => {
   return (
     <Media>
       <div
@@ -18,7 +18,9 @@ const ReplyCard = ({ _id, message, owner }) => {
             alt="user pic"
           />
           <Media.Body>
-            <p className="replyMessage">{message}</p>
+            <audio style={{ width: 200, marginTop: '15px', marginBottom: '-8px' }} src={audio} controls>
+              <track kind='captions'></track>
+            </audio>
             <p className="replyOwner">{owner.username}</p>
           </Media.Body>
         </div>
@@ -27,4 +29,4 @@ const ReplyCard = ({ _id, message, owner }) => {
   )
 }
 
-export default ReplyCard
+export default RecordCard

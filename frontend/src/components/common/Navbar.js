@@ -2,32 +2,33 @@ import React from 'react'
 
 import { Nav, NavDropdown, Navbar, Image } from 'react-bootstrap'
 import { logout, isAuthenticated } from '../lib/auth'
-// import { getUser } from '../lib/api'
+import { getUser } from '../lib/api'
 import CreateThreadHover from '../notifications/notification'
-import SemiosphereLab from '/Users/giacinto/development-ga/SEI50/projects/sei-project-3/frontend/src/styles/images/SemiosphereLab.png'
+import SemiosphereLab from '../../styles/images/SemiosphereLab.png'
 
 class Navigation extends React.Component {
   state = {
-    user: ''
+    profile: ''
   }
 
-  // async componentDidMount() {
-  //   try {
-  //     const res = await getUser()
-  //     this.setState({
-  //       profile: res.data
-  //     })
-  //     console.log(res.data)
-  //   } catch (err) {
-  //     console.log(err)
-  //   }
-  // }
+  async componentDidMount() {
+    
+    if (isAuthenticated()) {
+      const res = await getUser()
+      this.setState({
+        profile: res.data
+      })
+    } else this.setState({ profile: 'user' })
+    // console.log(res.data)
+    
+  }
   
 
   handleLogout = () => {
     logout()
   }
   render() {
+    const { username } = this.state.profile
     return (
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
         <Image className="imageLogo" roundedCircle src={SemiosphereLab} />
@@ -40,7 +41,7 @@ class Navigation extends React.Component {
           <Nav>
             { isAuthenticated() && <CreateThreadHover />}
             <NavDropdown 
-              title={ !isAuthenticated() ? 'Join' : 'User' }
+              title={ !isAuthenticated() ? 'Join' : `${username}` }
               id="collasible-nav-dropdown">
               { !isAuthenticated() && <NavDropdown.Item href="/register">Register</NavDropdown.Item> }
               { !isAuthenticated() && <NavDropdown.Item href="/login">Login</NavDropdown.Item> }

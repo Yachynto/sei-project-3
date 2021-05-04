@@ -2,6 +2,8 @@ const Thread = require('../models/thread')
 const User = require('../models/user')
 const { notFound, forbidden } = require('../lib/errorMessage')
 
+//! THREADS
+
 //* Create POST /threads
 async function threadCreate (req, res, next) {
   try {
@@ -18,13 +20,15 @@ async function threadCreate (req, res, next) {
 async function threadsIndex (_req, res, next) {
   try {
     const threads = await Thread.find()
+      .populate('owner')
+      .populate('replies.owner')
+      .populate('records.owner')
     if (!threads) throw new Error(notFound)
     res.status(200).json(threads)
     console.log('Getting all the threads')
   } catch (err) {
     next(err)
-  }
-  
+  }  
 }
 
 //* Show GET /threads/id
@@ -33,6 +37,7 @@ async function threadShow (req, res, next) {
     const thread = await Thread.findById(req.params.id)
       .populate('owner')
       .populate('replies.owner')
+      .populate('records.owner')
     if (!thread) throw new Error()
     res.status(200).json(thread)
     console.log(`Thread titled '${thread.title}' is being shown`)
@@ -67,6 +72,8 @@ async function threadUpdate(req, res, next) {
     next(err)
   }
 }
+
+//! REPLIES
 
 //* Create Replies POST /threads/Id/replies
 async function replyCreate(req, res, next) {
@@ -113,6 +120,55 @@ async function replyUpdate(req, res, next) {
   }
 }
 
+//! RECORDS
+
+//* Create Records POST /threads/Id/records
+async function recordCreate(req, res, next) {
+  try {
+    const thread = await Thread.findById(req.params.id)
+    if (!thread) throw new Error(notFound)
+    const record = { ...req.body, owner: req.currentUser._id }
+    thread.records.push(record)
+    await thread.save()
+    res.status(201).json(thread)
+  } catch (err) {
+    next(err)
+  }
+}
+
+//* Delete Records DELETE /threads/Id/records/Id
+async function recordDelete(req, res, next) {
+  try {
+    const thread = await Thread.findById(req.params.id)
+    if (!thread) throw new Error(notFound)
+    const recordToDelete = thread.records.id(req.params.recordId)
+    if (!recordToDelete) throw new Error(notFound)
+    await recordToDelete.remove()
+    await thread.save()
+    res.sendStatus(204)
+  } catch (err) {
+    next(err)
+  }
+}
+
+//* Update record PUT /threads/Id/records/Id
+async function recordUpdate(req, res, next) {
+  try {
+    const thread = await Thread.findById(req.params.id)
+    if (!thread) throw new Error(notFound)
+    const newRecord = req.body
+    const recordToUpdate = thread.records.id(req.params.recordId)
+    Object.assign(recordToUpdate, newRecord)
+    await thread.save()
+    res.status(202).json(thread)
+    console.log(`Thread titled '${thread.title}' has updated its record with '${req.body.message}'`)
+  } catch (err) {
+    next(err)
+  }
+}
+
+
+
 
 module.exports = {
   create: threadCreate,
@@ -122,5 +178,8 @@ module.exports = {
   update: threadUpdate,
   replyCreate: replyCreate,
   replyDelete: replyDelete,
-  replyUpdate: replyUpdate
+  replyUpdate: replyUpdate,
+  recordCreate: recordCreate,
+  recordDelete: recordDelete,
+  recordUpdate: recordUpdate
 }

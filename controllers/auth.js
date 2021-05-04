@@ -46,6 +46,17 @@ async function profile(req, res, next) {
     next(err)
   }
 }
+//* allProfile GET /admin/allProfile
+async function allProfile(_req, res, next) {
+  try {
+    const users = await User.find()
+    if (!users) throw new Error(notFound)
+    res.status(200).json(users)
+    console.log('Getting all Users')
+  } catch (err) {
+    next(err)
+  }
+}
 
 //* Update PUT /profile
 async function profileUpdate(req, res, next) {
@@ -66,5 +77,6 @@ module.exports = {
   register,
   login,
   profile,
+  index: allProfile,
   profileUpdate
 }

@@ -33,6 +33,7 @@ class Register extends React.Component {
   handleImageChange = url => {
     const formData = { ...this.state.formData, userImage: url }
     this.setState({ formData })
+    console.log('imagechange')
   }
 
   handleSubmit = async event => {
@@ -42,7 +43,7 @@ class Register extends React.Component {
       console.log(response.config.data)
       this.props.history.push('/login')
     } catch (err) {
-      console.log(err.response.data.message)
+      console.log(err.response.data)
       this.setState({ errors: err.response.data.errors })
     }
   }

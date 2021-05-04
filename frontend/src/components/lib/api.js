@@ -26,6 +26,11 @@ export const createReply = (id, formData) => {
   return axios.post(`/api/threads/${id}/replies`, formData, withHeaders())
 }
 
+// Records
+export const createRecord = (id, formData) => {
+  return axios.post(`/api/threads/${id}/records`, formData, withHeaders())
+}
+
 // Auth
 export const registerUser = formData => {
   return axios.post('/api/register', formData)
@@ -37,6 +42,10 @@ export const loginUser = formData => {
 
 export function getUser() {
   return axios.get('/api/profile', withHeaders())
+}
+
+export function getAllUsers() {
+  return axios.get('/api/admin/allProfile')
 }
 
 export const userEdit = (formData) => {

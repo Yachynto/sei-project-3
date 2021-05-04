@@ -19,6 +19,13 @@ router.route('/threads/:id/replies/:replyId')
   .delete(secureRoute, threads.replyDelete)
   .put(secureRoute, threads.replyUpdate)
 
+router.route('/threads/:id/records')
+  .post(secureRoute, threads.recordCreate)
+
+router.route('/threads/:id/records/:recordId')
+  .delete(secureRoute, threads.recordDelete)
+  .put(secureRoute, threads.recordUpdate)
+
 router.route('/register')
   .post(auth.register)
 
@@ -28,6 +35,9 @@ router.route('/login')
 router.route('/profile')
   .get(secureRoute, auth.profile)
   .put(secureRoute, auth.profileUpdate)
+
+router.route('/admin/allProfile')
+  .get(auth.index)
 
 
 module.exports = router
