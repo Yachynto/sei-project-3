@@ -7,7 +7,7 @@ const errorHandler = require('./lib/errorHandler')
 const logger = require('./lib/logger')
 
 mongoose.connect(
-  dbURI,
+  process.env.MONGODB_URI || dbURI,
   { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true },
   (err) => {
     if (err) {
