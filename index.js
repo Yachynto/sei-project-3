@@ -22,9 +22,6 @@ app.use(express.json())
 
 app.use(logger)
 
-const cors = require('cors')
-app.use(cors())
-
 app.use('/api', router)
 
 app.use(errorHandler)
